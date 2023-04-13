@@ -9,13 +9,11 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
-  Image,
   Dimensions,
 } from "react-native";
 import { useState, useEffect } from "react";
 
 const initialState = {
-  login: "",
   email: "",
   password: "",
 };
@@ -70,7 +68,7 @@ export default function Registration() {
           <View
             style={{
               ...styles.form,
-              marginBottom: isKeyboardShown ? -100 : 0,
+              // marginBottom: isKeyboardShown ? -100 : 0,
               paddingBottom: !isKeyboardShown ? 78 : 0,
             }}
           >

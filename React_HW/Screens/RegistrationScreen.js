@@ -20,7 +20,7 @@ const initialState = {
   password: "",
 };
 
-export default function Registration() {
+export default function Registration({ navigation }) {
   const [userInfo, setUserInfo] = useState(initialState);
   const [showPass, setShowPass] = useState(true);
   const [focusIndex, setFocusIndex] = useState(null);
@@ -58,6 +58,7 @@ export default function Registration() {
     console.log(userInfo);
     setUserInfo(initialState);
     keyboardHide();
+    navigation.navigate("Home", { screen: "Posts" });
   };
 
   return (
@@ -139,9 +140,14 @@ export default function Registration() {
                 >
                   <Text style={styles.btnText}>Sign up</Text>
                 </TouchableOpacity>
-                <Text style={styles.signIn}>
-                  Already have an account? Sign in
-                </Text>
+                <TouchableOpacity activeOpacity={0.75}>
+                  <Text style={styles.signIn}>
+                    Already have an account?{" "}
+                    <Text onPress={() => navigation.navigate("Login")}>
+                      Sign in
+                    </Text>
+                  </Text>
+                </TouchableOpacity>
               </View>
             </KeyboardAvoidingView>
           </View>
@@ -166,8 +172,8 @@ const styles = StyleSheet.create({
   form: {
     position: "relative",
     backgroundColor: "#FFFFFF",
-    borderWidth: 1,
-    borderColor: "#000000",
+    // borderWidth: 1,
+    // borderColor: "#000000",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
     alignItems: "center",

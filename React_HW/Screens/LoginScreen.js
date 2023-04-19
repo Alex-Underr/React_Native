@@ -12,6 +12,7 @@ import {
   Dimensions,
 } from "react-native";
 import { useState, useEffect } from "react";
+import Button from "../components/button";
 
 const initialState = {
   email: "",
@@ -73,7 +74,11 @@ export default function Login({ navigation }) {
               paddingBottom: !isKeyboardShown ? 78 : 0,
             }}
           >
-            <Text style={styles.text} lineHeight="1.17" letterSpacing="0.01em">
+            <Text
+              style={[styles.text, { fontWeight: "500" }]}
+              lineHeight="1.17"
+              letterSpacing="0.01em"
+            >
               Log in
             </Text>
             <KeyboardAvoidingView
@@ -110,20 +115,26 @@ export default function Login({ navigation }) {
                     }
                     value={userInfo.password}
                   ></TextInput>
-                  <Text style={styles.show} onPress={toggleShowPass}>
+                  <Text
+                    style={[styles.show, { fontWeight: "400" }]}
+                    onPress={toggleShowPass}
+                  >
                     Show
                   </Text>
                 </View>
+                <Button title="Sign in" onPress={onPressSubmit} />
 
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   activeOpacity={0.75}
                   style={styles.btn}
                   onPress={onPressSubmit}
                 >
-                  <Text style={styles.btnText}>Sign in</Text>
-                </TouchableOpacity>
+                  <Text style={[styles.btnText, { fontWeight: "400" }]}>
+                    Sign in
+                  </Text>
+                </TouchableOpacity> */}
                 <TouchableOpacity activeOpacity={0.75}>
-                  <Text style={styles.signIn}>
+                  <Text style={[styles.signIn, { fontWeight: "400" }]}>
                     Don't have an account?{" "}
                     <Text onPress={() => navigation.navigate("Registration")}>
                       Register
@@ -182,7 +193,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     fontFamily: "Roboto-Medium",
-    fontWeight: 500,
+    // fontWeight: 500,
     fontSize: 30,
     lineHeight: 35,
     color: "#212121",
@@ -219,7 +230,6 @@ const styles = StyleSheet.create({
   show: {
     fontSize: 16,
     fontFamily: "Roboto-Regular",
-    fontWeight: 400,
     color: "#1B4371",
     position: "absolute",
     right: 16,
@@ -242,7 +252,6 @@ const styles = StyleSheet.create({
 
   btnText: {
     fontSize: 16,
-    fontWeight: 400,
     fontFamily: "Roboto-Regular",
     color: "#FFFFFF",
   },
@@ -250,7 +259,6 @@ const styles = StyleSheet.create({
   signIn: {
     textAlign: "center",
     fontFamily: "Roboto-Regular",
-    fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
     color: "#1B4371",

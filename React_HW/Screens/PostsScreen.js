@@ -1,7 +1,8 @@
 import React from "react";
 import { Text, TouchableOpacity, StyleSheet, View } from "react-native";
 
-const PostsScreen = () => {
+const PostsScreen = ({ route }) => {
+  console.log(route.params);
   return (
     <View style={styles.screen}>
       <Text>PostsScreen</Text>

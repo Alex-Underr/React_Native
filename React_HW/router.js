@@ -25,5 +25,5 @@ const useRoute = (isAuth) => {
 
   return <Home />;
 };
-const router = useRoute(false);
+const router = useRoute(true);
 export default router;

@@ -15,7 +15,10 @@
     "jsEngine": "hermes",
     "ios": {
       "jsEngine": "jsc",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app needs access to your location to provide you with the most accurate weather forecast."
+      }
     },
     "android": {
       "jsEngine": "jsc",

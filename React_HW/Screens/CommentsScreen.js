@@ -1,17 +1,28 @@
+import { StyleSheet, Text, View, Image } from "react-native";
 
-import { Text, StyleSheet, View } from "react-native";
+export default function CommentsScreen({ route }) {
+  const { index } = route.params;
+  const { photo } = route.params.posts[index];
 
-export default function CommentsScreen() {
   return (
-    <View style={styles.screen}>
-      <Text>CommentsScreen</Text>
+    <View style={styles.container}>
+      <Image style={styles.image} source={{ uri: photo }} />
+      <Text>There are no comments yet</Text>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
-  screen: {
+  container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#fff",
+    paddingHorizontal: 16,
+    paddingVertical: 32,
+  },
+  image: {
+    width: "100%",
+    height: 240,
+    marginBottom: 8,
+    borderRadius: 8,
   },
 });

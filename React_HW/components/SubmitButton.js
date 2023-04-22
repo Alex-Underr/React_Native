@@ -1,21 +1,21 @@
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
 
-export default function Button({ title, onPress, disabled = false }) {
+export default function SubmitButton({
+  title,
+  onFormSubmit,
+  disabled = false,
+}) {
   return (
     <TouchableOpacity
-      activeOpacity={0.75}
+      onPress={onFormSubmit}
+      activeOpacity={0.7}
       style={{
         ...styles.btn,
         backgroundColor: disabled ? "#F6F6F6" : "#FF6C00",
       }}
-      onPress={onPress}
     >
       <Text
-        style={{
-          ...styles.btnText,
-          fontWeight: "400",
-          color: disabled ? "#BDBDBD" : "#FFFFFF",
-        }}
+        style={{ ...styles.btn_text, color: disabled ? "#BDBDBD" : "#FFFFFF" }}
       >
         {title}
       </Text>
@@ -25,17 +25,15 @@ export default function Button({ title, onPress, disabled = false }) {
 
 const styles = StyleSheet.create({
   btn: {
+    height: 51,
     justifyContent: "center",
     alignItems: "center",
-    height: 51,
     borderRadius: 100,
-    marginBottom: 16,
-    marginTop: 43,
+    backgroundColor: "#FF6C00",
   },
-
-  btnText: {
-    fontSize: 16,
+  btn_text: {
     fontFamily: "Roboto-Regular",
+    fontSize: 16,
     color: "#FFFFFF",
   },
 });

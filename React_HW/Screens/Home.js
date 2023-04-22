@@ -1,8 +1,11 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+
+import { MaterialIcons } from "@expo/vector-icons";
+import { Fontisto } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
@@ -10,139 +13,104 @@ import ProfileScreen from "./ProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
-const Home = () => {
-  const navigation = useNavigation();
+export default function Home() {
+  const initialHeaderTitleStyle = {
+    fontFamily: "Roboto-Medium",
+    fontSize: 17,
+    color: "#212121",
+  };
+  const initialBarBtnColors = {
+    tabBarActiveBackgroundColor: "#FF6C00",
+    tabBarActiveTintColor: "#fff",
+    tabBarInactiveTintColor: "rgba(33, 33, 33, 0.8)",
+  };
+  const initialTabBarItemStyleParams = {
+    borderRadius: 20,
+    height: 40,
+    maxWidth: 70,
+    marginTop: 9,
+  };
 
   return (
-    <View style={styles.container}>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarShowLabel: false,
-          tabBarActiveTintColor: "#FF6C00",
-          tabBarInactiveTintColor: "#8E8E93",
-          tabBarStyle: {
-            height: 83,
-            paddingHorizontal: 75,
+    <Tab.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          height: 83,
+          alignItems: "center",
+          shadowColor: "rgba(0, 0, 0, 0.3)",
+        },
+      }}
+    >
+      <Tab.Screen
+        options={{
+          title: "Posts",
+          headerTitleStyle: initialHeaderTitleStyle,
+          headerTitleAlign: "center",
+          headerRight: () => (
+            <TouchableOpacity>
+              <View style={{ marginRight: 10 }}>
+                <MaterialIcons name="logout" size={24} color="#BDBDBD" />
+              </View>
+            </TouchableOpacity>
+          ),
+          ...initialBarBtnColors,
+          tabBarItemStyle: {
+            ...initialTabBarItemStyleParams,
+            marginRight: 20,
           },
+          tabBarIcon: ({ focused, size, color }) => (
+            <MaterialIcons name="grid-view" size={size} color={color} />
+          ),
         }}
-      >
-        <Tab.Screen
-          name="Posts"
-          component={PostsScreen}
-          options={{
-            headerTitleAlign: "center",
-            tabBarIcon: ({ focused }) => (
-              <Ionicons
-                name="ios-apps-outline"
-                size={28}
-                style={[styles.tabBarIcon, focused && styles.tabBarIconFocused]}
-              />
-            ),
-            headerRight: () => (
-              <TouchableOpacity
-                activeOpacity={0.5}
-                onPress={() => {
-                  //логіка логауту
-                }}
-              >
-                <Ionicons
-                  name="ios-exit-outline"
+        name="Post"
+        component={PostsScreen}
+      />
+      <Tab.Screen
+        options={({ navigation }) => ({
+          title: "Create post",
+          headerTitleStyle: initialHeaderTitleStyle,
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
+              <View style={{ marginLeft: 20 }}>
+                <AntDesign
+                  name="arrowleft"
                   size={24}
-                  color="#BDBDBD"
-                  style={{ marginRight: 16 }}
+                  color="rgba(33, 33, 33, 0.8)"
                 />
-              </TouchableOpacity>
-            ),
-          }}
-        />
-
-        <Tab.Screen
-          name="Create Post"
-          component={CreatePostsScreen}
-          options={{
-            headerTitleAlign: "center",
-            tabBarIcon: ({ focused }) => (
-              <Ionicons
-                name="add"
-                size={28}
-                style={[styles.tabBarIcon, focused && styles.tabBarIconFocused]}
-              />
-            ),
-            headerLeft: () => (
-              <TouchableOpacity
-                activeOpacity={0.5}
-                onPress={() => {
-                  navigation.goBack();
-                }}
-              >
-                <Ionicons
-                  name="arrow-back"
-                  size={24}
-                  color="#212121"
-                  style={{ marginLeft: 16 }}
-                />
-              </TouchableOpacity>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{
-            headerTitleAlign: "center",
-            tabBarIcon: ({ focused }) => (
-              <Ionicons
-                name="person-outline"
-                size={28}
-                style={[styles.tabBarIcon, focused && styles.tabBarIconFocused]}
-              />
-            ),
-            headerRight: () => (
-              <TouchableOpacity
-                activeOpacity={0.5}
-                onPress={() => {
-                  //логіка логауту
-                }}
-              >
-                <Ionicons
-                  name="ios-exit-outline"
-                  size={24}
-                  color="#BDBDBD"
-                  style={{ marginRight: 16 }}
-                />
-              </TouchableOpacity>
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </View>
+              </View>
+            </TouchableOpacity>
+          ),
+          tabBarStyle: { display: "none" },
+          ...initialBarBtnColors,
+          tabBarItemStyle: initialTabBarItemStyleParams,
+          tabBarIcon: ({ focused, size, color }) => (
+            <Fontisto name="plus-a" size={size} color={color} />
+          ),
+        })}
+        name="Create Posts"
+        component={CreatePostsScreen}
+      />
+      <Tab.Screen
+        options={{
+          headerShown: false,
+          ...initialBarBtnColors,
+          tabBarItemStyle: {
+            ...initialTabBarItemStyleParams,
+            marginLeft: 20,
+          },
+          tabBarIcon: ({ focused, size, color }) => (
+            <Feather name="user" size={size} color={color} />
+          ),
+        }}
+        name="Profile"
+        component={ProfileScreen}
+      />
+    </Tab.Navigator>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-  },
-
-  tabBarIcon: {
-    backgroundColor: "transparent",
-    borderRadius: 0,
-    paddingTop: 0,
-    paddingBottom: 0,
-    paddingLeft: 0,
-    paddingRight: 0,
-    color: "#212121",
-  },
-  tabBarIconFocused: {
-    backgroundColor: "#FF6C00",
-    borderRadius: 25,
-    paddingTop: 9,
-    paddingBottom: 9,
-    paddingLeft: 24,
-    paddingRight: 24,
-    color: "#FFFFFF",
-  },
-});
-
-export default Home;
+}

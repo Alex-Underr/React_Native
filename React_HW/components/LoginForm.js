@@ -7,6 +7,10 @@ import {
   TouchableOpacity,
   Keyboard,
 } from "react-native";
+
+import { useDispatch } from "react-redux";
+import { signInUser } from "../redux/authorise/authOperations";
+
 import SubmitButton from "./SubmitButton";
 
 const initialState = {
@@ -25,11 +29,14 @@ export default function LoginForm({
   const [isPasswordInputActive, setIsPasswordInputActive] = useState(false);
   const [showPass, setShowPass] = useState(true);
 
+  const dispatch = useDispatch();
+
   const toggleShowPass = () => {
     setShowPass((prevState) => !prevState);
   };
   const onFormSubmit = () => {
     console.log(userData);
+    dispatch(signInUser(userData));
     Keyboard.dismiss();
     setUserData(initialState);
   };

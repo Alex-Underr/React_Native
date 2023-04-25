@@ -1,11 +1,11 @@
 import { createStackNavigator } from "@react-navigation/stack";
-
-import RegistrationScreen from "./screens/auth/RegistrationScreen";
-import LoginScreen from "./screens/auth/LoginScreen";
-import Home from "./screens/Home";
-import MapScreen from "./screens/MapScreen";
-import CommentsScreen from "./screens/CommentsScreen";
-
+import { useDispatch, useSelector } from "react-redux";
+import RegistrationScreen from "./Screens/auth/RegistrationScreen";
+import LoginScreen from "./Screens/auth/LoginScreen";
+import Home from "./Screens/Home";
+import MapScreen from "./Screens/MapScreen";
+import CommentsScreen from "./Screens/CommentsScreen";
+import { selectUser } from "./redux/authorise/authSelectors";
 const Stack = createStackNavigator();
 
 const initialHeaderTitleStyle = {
@@ -15,6 +15,8 @@ const initialHeaderTitleStyle = {
 };
 
 export default function useRoute(isAuth) {
+  const { userId } = useSelector(selectUser);
+  console.log("userId in router.js >>>>>>", userId);
   return (
     <Stack.Navigator>
       {isAuth ? (

@@ -9,8 +9,12 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+import { selectUser } from "../redux/authorise/authSelectors";
+import { useSelector } from "react-redux";
+
 export default function PostsScreen({ navigation, route }) {
   const [posts, setPosts] = useState([]);
+  const { name, email, userId } = useSelector(selectUser);
 
   useEffect(() => {
     if (route.params) {
@@ -24,10 +28,8 @@ export default function PostsScreen({ navigation, route }) {
       <View style={styles.userInfo}>
         <View style={styles.avatarPlaceholder}></View>
         <View>
-          <Text style={[styles.userName, { fontWeight: "700" }]}>
-            Olexandr V.
-          </Text>
-          <Text style={styles.userEmail}>alex@mail.com</Text>
+          <Text style={[styles.userName, { fontWeight: "700" }]}>{name}</Text>
+          <Text style={styles.userEmail}>{email}</Text>
         </View>
       </View>
       <FlatList

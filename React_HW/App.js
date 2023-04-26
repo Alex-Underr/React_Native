@@ -1,11 +1,12 @@
 import { useCallback } from "react";
+import { useEffect } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import useRoute from "./router";
-
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import Main from "./components/Main";
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
@@ -24,12 +25,12 @@ export default function App() {
     return null;
   }
 
-  const routing = useRoute(true);
-
   return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <NavigationContainer>{routing}</NavigationContainer>
+    <Provider store={store}>
+      <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+        <Main />
+      </View>
       <StatusBar style="auto" />
-    </View>
+    </Provider>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
+import { useDispatch } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
@@ -10,10 +10,11 @@ import { AntDesign } from "@expo/vector-icons";
 import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
-
+import { signout } from "../redux/authorise/authOperations";
 const Tab = createBottomTabNavigator();
 
 export default function Home() {
+  const dispatch = useDispatch();
   const initialHeaderTitleStyle = {
     fontFamily: "Roboto-Medium",
     fontSize: 17,
@@ -30,7 +31,9 @@ export default function Home() {
     maxWidth: 70,
     marginTop: 9,
   };
-
+  const onLogoutBtnPress = () => {
+    dispatch(signout());
+  };
   return (
     <Tab.Navigator
       screenOptions={{
@@ -48,7 +51,7 @@ export default function Home() {
           headerTitleStyle: initialHeaderTitleStyle,
           headerTitleAlign: "center",
           headerRight: () => (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onLogoutBtnPress}>
               <View style={{ marginRight: 10 }}>
                 <MaterialIcons name="logout" size={24} color="#BDBDBD" />
               </View>
@@ -98,7 +101,9 @@ export default function Home() {
       />
       <Tab.Screen
         options={{
-          headerShown: false,
+          headerTitleAlign: "center",
+          headerTitleStyle: initialHeaderTitleStyle,
+          headerShown: true,
           ...initialBarBtnColors,
           tabBarItemStyle: {
             ...initialTabBarItemStyleParams,
@@ -106,6 +111,13 @@ export default function Home() {
           },
           tabBarIcon: ({ focused, size, color }) => (
             <Feather name="user" size={size} color={color} />
+          ),
+          headerRight: () => (
+            <TouchableOpacity onPress={onLogoutBtnPress}>
+              <View style={{ marginRight: 10 }}>
+                <MaterialIcons name="logout" size={24} color="#BDBDBD" />
+              </View>
+            </TouchableOpacity>
           ),
         }}
         name="Profile"

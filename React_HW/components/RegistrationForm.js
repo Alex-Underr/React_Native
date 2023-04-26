@@ -33,7 +33,6 @@ export default function RegistrationForm({
   const dispatch = useDispatch();
 
   const onFormSubmit = () => {
-    console.log(userData);
     dispatch(signUpUser(userData));
     Keyboard.dismiss();
     setUserData(initialState);

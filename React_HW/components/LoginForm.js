@@ -35,7 +35,6 @@ export default function LoginForm({
     setShowPass((prevState) => !prevState);
   };
   const onFormSubmit = () => {
-    console.log(userData);
     dispatch(signInUser(userData));
     Keyboard.dismiss();
     setUserData(initialState);

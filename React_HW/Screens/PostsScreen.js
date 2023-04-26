@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
+import { collection, onSnapshot } from "@firebase/firestore";
+import { db } from "../firebase/config";
 import { selectUser } from "../redux/authorise/authSelectors";
 import { useSelector } from "react-redux";
 
@@ -17,11 +18,14 @@ export default function PostsScreen({ navigation, route }) {
   const { name, email, userId } = useSelector(selectUser);
 
   useEffect(() => {
-    if (route.params) {
-      setPosts((prevState) => [...prevState, route.params]);
-      console.log("PostsScreen", posts);
-    }
-  }, [route.params]);
+    getAllPost();
+  }, []);
+
+  const getAllPost = async () => {
+    await onSnapshot(collection(db, "posts"), (snapshots) => {
+      setPosts(snapshots.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -43,7 +47,10 @@ export default function PostsScreen({ navigation, route }) {
               <TouchableOpacity
                 style={styles.commentsWrapper}
                 onPress={() =>
-                  navigation.navigate("CommentsScreen", { posts, index })
+                  navigation.navigate("CommentsScreen", {
+                    postId: item.id,
+                    photo: item.photo,
+                  })
                 }
               >
                 <Ionicons name="chatbubble-outline" size={24} color="#BDBDBD" />

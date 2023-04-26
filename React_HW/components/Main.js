@@ -7,7 +7,6 @@ import useRoute from "../router";
 
 export default function Main() {
   const state = useSelector((state) => state);
-  console.log("state > > > > > > > > >", state);
   const dispatch = useDispatch();
 
   useEffect(() => {

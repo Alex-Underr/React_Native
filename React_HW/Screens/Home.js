@@ -101,7 +101,9 @@ export default function Home() {
       />
       <Tab.Screen
         options={{
-          headerShown: false,
+          headerTitleAlign: "center",
+          headerTitleStyle: initialHeaderTitleStyle,
+          headerShown: true,
           ...initialBarBtnColors,
           tabBarItemStyle: {
             ...initialTabBarItemStyleParams,
@@ -109,6 +111,13 @@ export default function Home() {
           },
           tabBarIcon: ({ focused, size, color }) => (
             <Feather name="user" size={size} color={color} />
+          ),
+          headerRight: () => (
+            <TouchableOpacity onPress={onLogoutBtnPress}>
+              <View style={{ marginRight: 10 }}>
+                <MaterialIcons name="logout" size={24} color="#BDBDBD" />
+              </View>
+            </TouchableOpacity>
           ),
         }}
         name="Profile"

@@ -16,7 +16,6 @@ const initialHeaderTitleStyle = {
 
 export default function useRoute(isAuth) {
   const { userId } = useSelector(selectUser);
-  console.log("userId in router.js >>>>>>", userId);
   return (
     <Stack.Navigator>
       {isAuth ? (

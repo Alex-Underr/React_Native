@@ -4,6 +4,7 @@ import {
   updateProfile,
   signInWithEmailAndPassword,
   getAuth,
+  signOut,
 } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { createAsyncThunk } from "@reduxjs/toolkit";
